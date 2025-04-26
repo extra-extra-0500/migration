@@ -164,11 +164,11 @@ app.get("/articles", isAuthenticated, (req, res) => {
     res.render('articles');
 });
 
-app.get("/mood", isAuthenticated, (req, res) => {
+app.get("/faq", isAuthenticated, (req, res) => {
     res.render('faq');
 });
 
-app.get("/audiolog", isAuthenticated, async (req, res) => {
+app.get("/diary", isAuthenticated, async (req, res) => {
     try {
         const allEntries = await Blog.find({ user: req.user._id });
 
@@ -206,7 +206,7 @@ app.post('/addDiary', isAuthenticated, async (req, res) => {
         mood: mood
       });
       await newEntry.save();
-      res.redirect('/audiolog');
+      res.redirect('/diary');
     } catch (error) {
       return res.render("addDiary", { error: 'Please Select a Mood by Clicking on the Emojis!' })
     }
@@ -219,7 +219,7 @@ app.post('/deleteDiary', async (req, res) => {
   try {
       // Find the blog by ID and remove it from the database
       await Blog.findOneAndDelete({ _id: blogId });
-      res.redirect('/audiolog');
+      res.redirect('/diary');
   } catch (error) {
       console.error('Error deleting blog:', error);
       res.status(500).send('Error deleting blog');
@@ -386,7 +386,7 @@ app.post('/signin', passport.authenticate('local', {
   failureFlash: true
 }));
     
-app.get("/soundmap", isAuthenticated, async (req, res) => {
+app.get("/newsmap", isAuthenticated, async (req, res) => {
 
   const today = new Date();
   const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0); // Start of the day
