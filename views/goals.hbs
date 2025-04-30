@@ -84,7 +84,9 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar2">
+    <section class="goals-section section-padding" id="section_goals" style="background-color:rgb(232, 246, 249)">
+    <div class="container" style="border:rgb(0, 0, 0) solid 5px; background-color: #80d0c7;box-shadow: 5px 5px 5px lightgrey; margin-top:30px">
+    <nav class="navbar navbar-expand-lg navbar2">
     <div class="container">
         <a class="navbar-brand click-scroll" href="/">
             <i class="bi-soundwave"></i>
@@ -135,38 +137,55 @@
     </div>
 </nav>
 <main>
-    <section class="goals-section section-padding" id="section_goals" style="background-color:rgb(232, 246, 249)">
-        <div class="container" style="border:rgb(0, 0, 0) solid 5px; background-color: #80d0c7;box-shadow: 5px 5px 5px lightgrey; margin-top:30px">
-            <div id="map"></div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+        const map = L.map('map').setView([20.0, 80.0], 2);
 
-            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-            <script>
-                // Initialize the map and set its view to Manhattan's coordinates
-                var map = L.map('map').setView([40.7831, -73.9712], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(map);
 
-                // Add OpenStreetMap tiles
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                }).addTo(map);
+        const locations = [
+            { title: "Climate Change in Bangladesh Shapes Internal Migration and Movement to India", summary: "Examines how environmental degradation and climate disasters (e.g., cyclones, sea-level rise) drive internal migration to Dhaka and cross-border migration to India. Highlights challenges like India’s Citizenship Amendment Act and Assam’s National Register of Citizens.", lat: 23.7, lon: 90.4, link: "" },
+            { title: "Sri Lanka's Climate Exodus", summary: "Focuses on Sri Lankan women farmers migrating to the Middle East due to climate-driven agricultural collapse (droughts, floods). Discusses debt crises and risks of human trafficking.", lat: 8.0, lon: 80.4, link: "" },
+            { title: "Conflict and Climate Change in Myanmar", summary: "Explores how climate hazards (floods, cyclones) and civil war exacerbate displacement, with migration to Thailand and regional instability. Highlights deforestation and Rohingya refugee crises.", lat: 20.0, lon: 93.0, link: "" },
+            { title: "Vietnam Climate and Rice Production", summary: "Links rising temperatures to reduced rice yields in Vietnam’s Mekong Delta, forcing rural-to-urban migration. Uses data on temperature shocks and household surveys.", lat: 10.0, lon: 105.8, link: "" },
+            { title: "Philippines Climate Refugees", summary: "Analyzes displacement from typhoons (e.g., Haiyan) and volcanic eruptions. Discusses impacts on indigenous Aeta communities and gender disparities.", lat: 10.9, lon: 124.8, link: "" },
+            { title: "Managed Retreat in Coastal India", summary: "Focuses on coastal erosion and cyclones in Odisha and West Bengal. Details India’s first managed retreat in Satabhaya village and challenges in the Sundarbans.", lat: 20.3, lon: 85.8, link: "" },
+            { title: "Nepal's Mountains and Migration", summary: "Discusses glacial lake outburst floods (GLOFs) and water scarcity driving migration from Himalayan villages. Highlights youth challenges in urban integration.", lat: 27.8, lon: 86.7, link: "" },
+            { title: "Climate Migration 101 - Pakistan", summary: "Highlights Pakistan’s 2022 floods displacing 8 million people, with subsequent migration to Europe. Explores links between climate disasters and economic collapse.", lat: 28.0, lon: 69.0, link: "" },
+            { title: "Climate Migration and Displacement: Challenges and Responses", summary: "Broad overview of climate migration in South Asia, including Bangladesh’s projected 19.9 million internal climate migrants by 2050 and India’s vulnerability.", lat: 26.1, lon: 92.9, link: "" },
+            { title: "Editorial: Climate Migration Research and Policy Connections", summary: "Reviews global progress since the 2011 Foresight Report, citing case studies like Fiji’s planned relocations and New Zealand’s Pacific Access Category visa for climate migrants.", lat: -18.2828, lon: 177.9356, link: "" },
+            { title: "Climate Change Threatens Maldives' Fisheries and Tourism", summary: "Assesses how sea-level rise, coral bleaching, and storm surges jeopardize the fisheries and resort-based economy of the Maldives—calling for mangrove restoration, elevated infrastructure, and legal frameworks for planned relocation.", lat: 3.1866, lon: 73.6528, link: "https://www.worldbank.org/en/news/press-release/2024/09/13/climate-change-threatens-maldives-fisheries-and-tourism-urgent-adaptation-needed" },
+            { title: "Fiji’s Climate Retreat Plan", summary: "Describes Fiji’s Standard Operating Procedures for Planned Relocations—already used to move six villages (e.g., Vunidogoloa) inland—making it the world’s most advanced national-level climate-retreat strategy.", lat: -16.450, lon: 179.350, link: "" },
+            { title: "Fiji’s Togoru: Climate Retreat in Action", summary: "A settlement moved under Fiji’s planned retreat strategy, illustrating the scale of national climate adaptation.", lat: -18.350, lon: 178.400, link: "" },
+            { title: "Chinguetti’s Ancient Libraries Threatened by Desertification", summary: "Chinguetti, a historic city in Mauritania, faces the encroachment of the Sahara Desert due to climate change. Increasing sandstorms and desertification threaten to bury the city, endangering its ancient libraries and cultural heritage. Efforts like tree-planting are underway, but the challenges of declining rainfall and disappearing vegetation persist.", lat: 20.4613, lon: -12.3660, link: "https://apnews.com/article/fddd80d31620355b06afca4cc9f94d99" },
+            { title: "Alexandria on the Brink: Sea-Level Rise and Urban Risk", summary: "Alexandria, Egypt's second-largest city, is highly vulnerable to sea-level rise. Projections indicate that a 50 cm rise by 2050 could displace up to 2 million residents and result in significant job losses. The city's low elevation and dense population make it particularly susceptible to flooding and saltwater intrusion, threatening both livelihoods and infrastructure.", lat: 31.2067, lon: 29.9433, link: "https://www.lawfaremedia.org/article/from-bad-to-worse-climate-migration-in-middle-east" },
+            { title: "Baidoa’s Struggle: Drought and Displacement in Somalia", summary: "Baidoa, a city in Somalia, has become a major settlement area for internally displaced persons fleeing drought and conflict. The prolonged droughts, exacerbated by climate change, have led to severe food insecurity and displacement, straining the city's resources and infrastructure.", lat: 3.1154, lon: 43.6522, link: "https://www.citiesalliance.org/newsroom/news/results/how-african-cities-are-managing-climate-induced-migration" },
+            { title: "Jigjiga Faces Water Scarcity and Rapid Urban Migration", summary: "Jigjiga, a city in Ethiopia, is facing challenges due to prolonged droughts leading to water scarcity. The influx of migrants from rural areas has increased pressure on the city's water resources and infrastructure. Urban planners are working to manage this growth sustainably.", lat: 9.3480, lon: 42.7966, link: "https://www.citiesalliance.org/newsroom/news/results/how-african-cities-are-managing-climate-induced-migration" },
+            { title: "Tapachula: Climate Stress Driving Migration at Mexico’s Border", summary: "Extreme weather driven by climate change is increasing undocumented migration from Mexico to the U.S., especially from agricultural communities hit by droughts. Migrants are also less likely to return home when extreme weather persists, highlighting the deepening impact of climate stress.", lat: 14.9054, lon: -92.2750, link: "https://apnews.com/article/us-mexico-migration-climate-change-drought-2716b712e1f87cb66985412f0f7c4c89" },
+            { title: "How Weather Extremes Shape U.S.-Mexico Migration Patterns", summary: "Extreme rainfall patterns in Mexico are strongly linked to undocumented migration to and from the U.S., especially from farming communities without irrigation. Droughts increase migration north, while both wet and dry seasons reduce the chances of migrants returning.", lat: 29.0, lon: -105.0, link: "https://www.preventionweb.net/news/weather-extremes-influence-human-migration-between-mexico-and-united-states" },
+            { title: "Zacatecas and the Climate Crisis: Mexico’s Migration Challenge", summary: "Mexico faces escalating threats from climate change, including severe storms, food insecurity, and climate-induced displacement, exacerbated by economic inequality. Despite its high greenhouse gas emissions, Mexico has set targets to cut emissions and transition to clean energy, but greater action is needed.", lat: 22.7722, lon: -102.5764, link: "https://belonging.berkeley.edu/climatedisplacement/case-studies/mexico" },
+            { title: "How Climate Migration Could Reshape U.S. Politics", summary: "Climate change, particularly drought in Mexico, is increasingly driving migration to the U.S., but Trump’s immigration and climate policies ignore this link and risk worsening it. Without serious investment in climate resilience, migration will continue to intensify despite stricter border enforcement.", lat: 33.4528, lon: -112.0768, link: "https://www.theatlantic.com/science/archive/2024/11/migration-climate-trump/680696/" },
+            { title: "Pakistan’s 2023 Floods: Displacement and Climate Resilience", summary: "Since June 2023, heavy monsoon rains and floods have caused widespread devastation across Pakistan, resulting in 226 deaths, 349 injuries, and the displacement of over 547,000 people, particularly impacting Punjab, Khyber Pakhtunkhwa, Sindh, and Balochistan.", lat: 30.0, lon: 70.0, link: "http://reliefweb.int/disaster/fl-2023-000119-pak" }
+        ];
 
-                // Add a marker with detailed popup content
-                {{!-- var marker = L.marker([40.7831, -73.9712]).addTo(map); --}}
-                var union_marker = L.marker([40.73460796393665, -73.99035219323927]).addTo(map);
-                var conwell_marker = L.marker([40.70559796450029, -74.0090930202241]).addTo(map);
-                var harlem_marker = L.marker([40.80824124062748, -73.94415673955851]).addTo(map);
-                var jp_marker = L.marker([40.74958342597432, -73.981300540445]).addTo(map);
-                var columbus_marker = L.marker([40.78530833072652, -73.97291520673244]).addTo(map);
-                var stonewall_marker = L.marker([40.73398706537088, -74.0020928625538]).addTo(map);
-                var trinity_marker = L.marker([40.70806216707442, -74.01178300514212]).addTo(map);
-                var auzataar_marker = L.marker([40.75913288028022, -73.9627355067299]).addTo(map);
-                var bakery_marker = L.marker([40.82583562330236, -73.9495336737475]).addTo(map);
-                var herald_marker = L.marker([40.750329299785, -73.98766510090977]).addTo(map);
-                var library_marker = L.marker([40.76102465550317, -73.97728255091597]).addTo(map);
-                var met_marker = L.marker([40.77956658690658, -73.96329227974825]).addTo(map);
-                var timesquare_marker = L.marker([40.758137236091116, -73.98546213372236]).addTo(map);
-                var wollman_marker = L.marker([40.76797451206486, -73.97437407789505]).addTo(map);
+        locations.forEach(loc => {
+            const marker = L.marker([loc.lat, loc.lon]).addTo(map);
+            marker.bindPopup(`
+                <div class="popup-content">
+                    <div class="popup-flex">
+                        <div class="popup-text">
+                            <h3>${loc.title}</h3>
+                            <p>${loc.summary}</p>
+                            ${loc.link ? `<a href="${loc.link}" target="_blank">Link to Article</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `);
 
-                var unionContent = `
+            var unionContent = `
                     <div class="popup-content">
                         <div class="popup-flex">
                             <img src="images/union.jpeg" alt="Union Square Subway">
@@ -176,375 +195,8 @@
                             </div>
                         </div>
                     </div>`;
-
-                var conwellContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/conwell.jpg" alt="Conwell Coffee Hall">
-                            <div class="popup-text">
-                                <h3>Conwell Coffee Hall</h3>
-                                <p>"There was this one rainy afternoon I spent here. The espresso machine hissed like it was alive, and soft conversations swirled around me. It felt like the world outside didn’t exist for a moment."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var harlemContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/harlem.jpeg" alt="Harlem Streets">
-                            <div class="popup-text">
-                                <h3>Harlem Streets</h3>
-                                <p>"Once, I turned a corner and found this guy playing a sax under a streetlight. It wasn’t a performance—it was like he was just playing for himself. But it filled the whole block with this raw, soulful energy. That’s Harlem."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var jpContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/jp.jpg" alt="JP Morgan Library & Museum">
-                            <div class="popup-text">
-                                <h3>JP Morgan Library & Museum</h3>
-                                <p>"One day, I just sat there, listening to the sound of someone flipping pages in a book across the room. It was so quiet you could hear the history in the walls. I don’t know why, but it made me feel really small, in a good way."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var columbusContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/columbus.jpg" alt="Shops at Columbus Avenue">
-                            <div class="popup-text">
-                                <h3>Shops at Columbus Avenue</h3>
-                                <p>"It’s weirdly quiet for the city. I remember walking here after a long day, hearing a dog bark in the distance and soft conversations around me. It’s like the noise knows how to take a step back here."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var stonewallContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/stonewall.jpeg" alt="The Stonewall Inn">
-                            <div class="popup-text">
-                                <h3>The Stonewall Inn</h3>
-                                <p>"I walked by one night, and the laughter was so loud it spilled onto the street. People were singing along to some throwback anthem inside, and I couldn’t help but smile. It’s impossible to feel down around that kind of energy."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var trinityContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/trinity.jpg" alt="Trinity Church">
-                            <div class="popup-text">
-                                <h3>Trinity Church</h3>
-                                <p>"I came here on a whim once, looking for some peace. All I heard was the wind rustling through the trees and this faint hum of the city far off. It’s one of the few places where New York feels still."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var auzataarContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/auzataar.jpeg" alt="Au Zataar">
-                            <div class="popup-text">
-                                <h3>Au Zataar</h3>
-                                <p>"The first time I came here, the smell of grilled kebabs hit me before I even opened the door. Inside, you hear the sizzle and the gentle clink of plates. It’s the kind of noise that makes you feel like you’re home, even if you’re not."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var bakeryContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/bakery.jpeg" alt="Harlem Bakery">
-                            <div class="popup-text">
-                                <h3>Harlem Bakery</h3>
-                                <p>"I remember standing in line here, listening to the oven’s soft beeps and the jingle of the doorbell. Someone started laughing so hard that the rest of us couldn’t help but smile. It was like the whole bakery caught the vibe."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var heraldContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/herald.jpg" alt="Herald Square Holiday Market">
-                            <div class="popup-text">
-                                <h3>Herald Square Holiday Market</h3>
-                                <p>"I stumbled on this little market last winter. Snow was crunching under my boots, and people were chatting and laughing. Then I heard these tiny wind chimes from a vendor’s stall. It was so delicate, but it made everything else feel magical."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var libraryContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/library.png" alt="Outside New York Public Library">
-                            <div class="popup-text">
-                                <h3>Outside New York Public Library</h3>
-                                <p>"I was sitting on the steps once, and a street performer started playing ‘Summertime’ on the sax. Traffic was honking and people were rushing by, but somehow, that song cut through it all. For a moment, it felt like the whole city paused."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var metContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/met.jpeg" alt="Metropolitan Museum of Art">
-                            <div class="popup-text">
-                                <h3>Metropolitan Museum of Art</h3>
-                                <p>"There’s this odd echo inside—soft footsteps on marble, whispers blending with the silence. I remember walking through the Egyptian exhibit, and the quiet felt ancient, like it was holding onto secrets."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var timesquareContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/timesquare.JPEG" alt="Times Square">
-                            <div class="popup-text">
-                                <h3>Times Square</h3>
-                                <p>"Okay, I’ll admit it—Times Square can be a lot. But there was one time I stopped dead in the middle of all the chaos. Honking, shouting, flashing lights—it should’ve been overwhelming, but it felt like the city was alive, buzzing with energy."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-                var wollmanContent = `
-                    <div class="popup-content">
-                        <div class="popup-flex">
-                            <img src="images/wollman.jpeg" alt="Wollman Rink - Central Park">
-                            <div class="popup-text">
-                                <h3>Wollman Rink - Central Park</h3>
-                                <p>"I’ll never forget this one moment—I was watching a little kid fall on the ice, laughing so hard as their dad helped them up. The skates scraping the ice, the music, the laughter—it all felt so alive, like joy you could hear."</p>
-                            </div>
-                        </div>
-                    </div>`;
-
-
-                {{!-- marker.bindPopup(popupContent); --}}
-                union_marker.bindPopup(unionContent);
-                conwell_marker.bindPopup(conwellContent);
-                harlem_marker.bindPopup(harlemContent);
-                jp_marker.bindPopup(jpContent);
-                columbus_marker.bindPopup(columbusContent);
-                stonewall_marker.bindPopup(stonewallContent);
-                herald_marker.bindPopup(heraldContent);
-                trinity_marker.bindPopup(trinityContent);
-                auzataar_marker.bindPopup(auzataarContent);
-                harlem_marker.bindPopup(harlemContent);
-                bakery_marker.bindPopup(bakeryContent);
-                library_marker.bindPopup(libraryContent);
-                met_marker.bindPopup(metContent);
-                timesquare_marker.bindPopup(timesquareContent);
-                wollman_marker.bindPopup(wollmanContent);
-
-                let audio = null;
-
-                {{!-- marker.on('click', function () {
-                    audio = new Audio('audio.mp3');
-                    audio.play();
-                });
-
-                map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                union_marker.on('click', function () {
-                    audio = new Audio('/audio/union.m4a');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                conwell_marker.on('click', function () {
-                    audio = new Audio('/audio/conwell.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                harlem_marker.on('click', function () {
-                    audio = new Audio('/audio/harlem.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                jp_marker.on('click', function () {
-                    audio = new Audio('/audio/jp.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                columbus_marker.on('click', function () {
-                    audio = new Audio('/audio/columbus.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                stonewall_marker.on('click', function () {
-                    audio = new Audio('/audio/stonewall.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                trinity_marker.on('click', function () {
-                    audio = new Audio('/audio/trinity.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                auzataar_marker.on('click', function () {
-                    audio = new Audio('/audio/auzataar.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                bakery_marker.on('click', function () {
-                    audio = new Audio('/audio/bakery.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                herald_marker.on('click', function () {
-                    audio = new Audio('/audio/herald.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                library_marker.on('click', function () {
-                    audio = new Audio('/audio/library.m4a');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                met_marker.on('click', function () {
-                    audio = new Audio('/audio/met.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                timesquare_marker.on('click', function () {
-                    audio = new Audio('/audio/timesquare.mp4');
-                    audio.play();
-                });
-
-                {{!-- map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                }); --}}
-
-                wollman_marker.on('click', function () {
-                    audio = new Audio('/audio/wollman.m4a');
-                    audio.play();
-                });
-
-                map.on('popupclose', function () {
-                    console.log('Popup closed');
-                    if (audio) {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }
-                });
-            </script>
-        </div>
-    </section>
-</main>
-<footer class="site-footer section-padding">
-    <div class="container">
-        <div class="row">
-
-        </div>
+        });
+    </script>
     </div>
-</footer>
+    </section>
 </body>
-
-
